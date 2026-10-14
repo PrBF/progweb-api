@@ -256,13 +256,20 @@ app.delete('/esportes/:id', async (req, res) => {
 })
 
 app.get('/esportes/resetar', async (req, res) => {
-    await Esporte.collection.drop();
-    const esporte1 = new Esporte({ nome: 'Futebol' })
-    const esporte2 = new Esporte({ nome: 'Futebol' })
-    const esporte3 = new Esporte({ nome: 'Esqui' })
-    Esporte.insertMany([esporte1, esporte2, esporte3])
-    res.status(204).json({})
-})
+    try {
+        await Esporte.deleteMany({});
+        await Esporte.insertMany([
+            { nome: 'Futebol' },
+            { nome: 'Vôlei' },
+            { nome: 'Esqui' }
+        ]);
+        res.status(200).json({ message: 'Tudo limpo e reiniciado nos esportes!' });
+    } catch (error) {
+        console.error("Erro ao resetar esportes:", error);
+        res.status(500).json({ message: 'Erro interno ao resetar a coleção.' });
+    }
+});
+
 
 
 
