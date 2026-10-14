@@ -255,6 +255,16 @@ app.delete('/esportes/:id', async (req, res) => {
     res.status(204).json({})
 })
 
+app.get('/esportes/resetar', async (req, res) => {
+    await Esporte.collection.drop();
+    const esporte1 = new Esporte({ nome: 'Futebol' })
+    const esporte2 = new Esporte({ nome: 'Futebol' })
+    const esporte3 = new Esporte({ nome: 'Esqui' })
+    Esporte.insertMany([esporte1, esporte2, esporte3])
+    res.status(204).json({})
+})
+
+
 
 
 
