@@ -255,7 +255,7 @@ app.delete('/esportes/:id', async (req, res) => {
     res.status(204).json({})
 })
 
-app.get('/esportes/resetar', async (req, res) => {
+app.get('/sports/reset', async (req, res) => {
     try {
         await Esporte.deleteMany({});
         await Esporte.insertMany([
